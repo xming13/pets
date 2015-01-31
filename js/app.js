@@ -1,4 +1,31 @@
 $(function() {
+
+    // Router
+    var PetRouter = Backbone.Router.extend({
+        routes: {
+            'pet/:id': 'viewPet',
+            'pet/:id/edit': 'editPet',
+            'pet/add': 'addPet'
+        },
+
+        viewPet: function(id){
+            console.log("View pet requested.");
+            this.navigate("pet/" + id + '/edit'); // updates the fragment for us, but doesn't trigger the route
+        },
+
+        editPet: function(id) {
+            console.log("Edit pet opened.");
+        },
+
+        addPet: function() {
+            console.log('Adopt a new pet!');
+        }
+    });
+
+    var myPetRouter = new PetRouter();
+
+    Backbone.history.start();
+
     // Model
     var Pet = Backbone.Model.extend({
         defaults: {
@@ -61,7 +88,6 @@ $(function() {
         },
 
         render: function() {
-
             this.$el.html(this.template(this.model.toJSON()));
             return this;
         },
@@ -80,11 +106,18 @@ $(function() {
     });
 
     var AppView = Backbone.View.extend({
-        el: $('#main'),
+        el: $('#pet-app'),
+
+        events: {
+            'click .add-pet': 'goToAdd'
+        },
 
         initialize: function() {
+            this.$main = this.$('#main');
+            this.$footer = this.$('#footer');
+
             this.listenTo(MyPets, 'add', this.addOne);
-            this.listenTo(MyPets, 'all', this.render);
+            this.listenTo(MyPets, 'reset', this.addAll);
 
             MyPets.fetch();
         },
@@ -93,9 +126,19 @@ $(function() {
 
         },
 
+        goToAdd: function() {
+            console.log('goToAdd');
+            myPetRouter.navigate('pet/add');
+        },
+
         addOne: function(pet) {
             var view = new PetView({model: pet});
             this.$("#pet-list").append(view.render().el);
+        },
+
+        addAll: function() {
+            this.$('#pet-list').html('');
+            MyPets.each(this.addOne, this);
         }
 
     });

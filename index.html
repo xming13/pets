@@ -7,9 +7,16 @@
 <body>
 <link rel="stylesheet" type="text/css" href="css/app.css">
 
-<div id="main">
-    <div id="pet-list"></div>
-</div>
+<section id="pet-app">
+    <header id="header">
+        <h1>Pets</h1>
+    </header>
+    <section id="main">
+        <div id="pet-list"></div>
+        <div class="add-pet">+</div>
+    </section>
+    <footer id="footer"></footer>
+</section>
 
 <script type="text/template" id="pet-template">
     <div class="pet-name"><%= name %></div>
