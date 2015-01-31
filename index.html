@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Pets</title>
+</head>
+<body>
+<link rel="stylesheet" type="text/css" href="css/app.css">
+
+<div id="main">
+    <div id="pet-list"></div>
+</div>
+
+<script type="text/template" id="pet-template">
+    <div class="pet-name"><%= name %></div>
+    <div class="pet <%= type %> <%= state %>"></div>
+    <a class="action-feed">Feed</a>
+    <a class="action-exercise">Exercise</a>
+    <a class="action-sleep">Sleep</a>
+</script>
+
+<script src="js/jquery.1.9.1.min.js"></script>
+<script src="js/underscore-min.js"></script>
+<script src="js/backbone-min.js"></script>
+<script src="js/backbone.localstorage.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

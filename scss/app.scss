@@ -1,0 +1,163 @@
+@import "bourbon/bourbon";
+
+body {
+  background-color: #BDFF98;
+}
+
+#pet-list {
+  text-align: center;
+}
+
+.pet-wrapper {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  display: inline-block;
+
+  a {
+    position: absolute;
+    bottom: 0;
+    @include calc('width', '100% / 3');
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgba(#FFF, 0);
+    }
+  }
+  .action-feed {
+    background-color: rgba(#FFF, 0.25);
+    left: 0;
+  }
+  .action-exercise {
+    background-color: rgba(#FFF, 0.5);
+    @include calc('left', '100% / 3');
+  }
+  .action-sleep {
+    background-color: rgba(#FFF, 0.75);
+    right: 0;
+  }
+}
+
+.rabbit-wrapper {
+  background: #FF6D74;
+}
+.piglet-wrapper {
+  background: #FF9E66;
+}
+
+.pet-name {
+  padding: 12px;
+  text-align: center;
+  font-size: 20px;
+  font-family: cursive;
+  color: white;
+}
+
+.pet {
+  position: absolute;
+  top: 128px;
+  left: 95px;
+  width: 80px;
+  height: 48px;
+}
+
+.rabbit {
+  &.exercise {
+    position:relative;
+    background-color:#ffffff;
+    border-radius:70% 90% 60% 50%;
+    box-shadow: -3px 16px 0 -12px #b78e81;
+    @include transform(rotate(0deg) translate(-32px,0));
+    @include animation(hop 1s infinite linear);
+    z-index:1;
+    .no-flexbox & {margin:160px auto 0;}
+    //tail, eye, feet
+    &:before {
+      content:"";
+      position:absolute;
+      top:8px;
+      left:-4px;
+      width:16px;
+      height:16px;
+      background:white; // tail
+      border-radius:100%;
+      box-shadow:
+        64px 6px 0 -6px #3f3334, // eye
+        8px 16px 0 white, // back foot
+        64px 16px 0 -5px white, // front foot
+        64px 16px 0 -5px white,
+        64px 16px 0 -6px white;;
+      @include animation(kick 1s infinite linear);
+    }
+    // ears
+    &:after {
+      content:"";
+      position:absolute;
+      top:-16px;
+      right:16px;
+      width:12px;
+      height:32px;
+      background:white;
+      border-top:1px solid #f7f5f4;
+      border-left: 1px solid #f7f5f4;
+      border-radius:50% 100% 0 0;
+      box-shadow:-8px 0 0 -1px white;
+      @include transform(rotate(-30deg));
+    }
+  }
+  &.eat {
+    background-color: #F00;
+  }
+  &.sleep {
+    background-color: #ff5b74;
+  }
+}
+
+.piglet {
+  &.exercise {
+    background-color: #ff8209;
+  }
+  &.eat {
+    background-color: #FFE456;
+  }
+  &.sleep {
+    background-color: #ff3a00;
+  }
+}
+
+@include keyframes(hop) {
+  20% {
+    @include transform(rotate(-10deg) translate(16px,-32px));
+    box-shadow: -3px 48px 0 -16px #b78e81;
+  }
+  40% {
+    @include transform(rotate(10deg) translate(48px,-64px));
+    box-shadow: -3px 52px 0 -18px #b78e81;
+  }
+  60%,75% {
+    @include transform(rotate(0) translate(64px,0));
+    box-shadow: -3px 16px 0 -12px #b78e81;
+  }
+}
+
+@include keyframes(kick) {
+  20%,50% {
+    box-shadow:
+      64px 6px 0 -6px #3f3334,
+      8px 24px 0 white,
+      64px 28px 0 -5px white,
+      64px 28px 0 -5px white,
+      64px 30px 0 -6px white;
+  }
+  40% {
+    box-shadow:
+      64px 6px 0 -6px #3f3334,
+      8px 32px 0 white,
+      64px 28px 0 -5px white,
+      67px 28px 0 -3px white,
+      70px 30px 0 -3px white;
+  }
+}

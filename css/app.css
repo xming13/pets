@@ -1,0 +1,170 @@
+body {
+  background-color: #BDFF98; }
+
+#pet-list {
+  text-align: center; }
+
+.pet-wrapper {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  display: inline-block; }
+  .pet-wrapper a {
+    position: absolute;
+    bottom: 0;
+    width: -webkit-calc(100% / 3);
+    width: calc(100% / 3);
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    cursor: pointer; }
+    .pet-wrapper a:hover {
+      background-color: rgba(255, 255, 255, 0); }
+  .pet-wrapper .action-feed {
+    background-color: rgba(255, 255, 255, 0.25);
+    left: 0; }
+  .pet-wrapper .action-exercise {
+    background-color: rgba(255, 255, 255, 0.5);
+    left: -webkit-calc(100% / 3);
+    left: calc(100% / 3); }
+  .pet-wrapper .action-sleep {
+    background-color: rgba(255, 255, 255, 0.75);
+    right: 0; }
+
+.rabbit-wrapper {
+  background: #FF6D74; }
+
+.piglet-wrapper {
+  background: #FF9E66; }
+
+.pet-name {
+  padding: 12px;
+  text-align: center;
+  font-size: 20px;
+  font-family: cursive;
+  color: white; }
+
+.pet {
+  position: absolute;
+  top: 128px;
+  left: 95px;
+  width: 80px;
+  height: 48px; }
+
+.rabbit.exercise {
+  position: relative;
+  background-color: #ffffff;
+  border-radius: 70% 90% 60% 50%;
+  box-shadow: -3px 16px 0 -12px #b78e81;
+  -webkit-transform: rotate(0deg) translate(-32px, 0);
+  -moz-transform: rotate(0deg) translate(-32px, 0);
+  -ms-transform: rotate(0deg) translate(-32px, 0);
+  -o-transform: rotate(0deg) translate(-32px, 0);
+  transform: rotate(0deg) translate(-32px, 0);
+  -webkit-animation: hop 1s infinite linear;
+  -moz-animation: hop 1s infinite linear;
+  animation: hop 1s infinite linear;
+  z-index: 1; }
+  .no-flexbox .rabbit.exercise {
+    margin: 160px auto 0; }
+  .rabbit.exercise:before {
+    content: "";
+    position: absolute;
+    top: 8px;
+    left: -4px;
+    width: 16px;
+    height: 16px;
+    background: white;
+    border-radius: 100%;
+    box-shadow: 64px 6px 0 -6px #3f3334, 8px 16px 0 white, 64px 16px 0 -5px white, 64px 16px 0 -5px white, 64px 16px 0 -6px white;
+    -webkit-animation: kick 1s infinite linear;
+    -moz-animation: kick 1s infinite linear;
+    animation: kick 1s infinite linear; }
+  .rabbit.exercise:after {
+    content: "";
+    position: absolute;
+    top: -16px;
+    right: 16px;
+    width: 12px;
+    height: 32px;
+    background: white;
+    border-top: 1px solid #f7f5f4;
+    border-left: 1px solid #f7f5f4;
+    border-radius: 50% 100% 0 0;
+    box-shadow: -8px 0 0 -1px white;
+    -webkit-transform: rotate(-30deg);
+    -moz-transform: rotate(-30deg);
+    -ms-transform: rotate(-30deg);
+    -o-transform: rotate(-30deg);
+    transform: rotate(-30deg); }
+.rabbit.eat {
+  background-color: #F00; }
+.rabbit.sleep {
+  background-color: #ff5b74; }
+
+.piglet.exercise {
+  background-color: #ff8209; }
+.piglet.eat {
+  background-color: #FFE456; }
+.piglet.sleep {
+  background-color: #ff3a00; }
+
+@-webkit-keyframes hop {
+  20% {
+    -webkit-transform: rotate(-10deg) translate(16px, -32px);
+    box-shadow: -3px 48px 0 -16px #b78e81; }
+  40% {
+    -webkit-transform: rotate(10deg) translate(48px, -64px);
+    box-shadow: -3px 52px 0 -18px #b78e81; }
+  60%,75% {
+    -webkit-transform: rotate(0) translate(64px, 0);
+    box-shadow: -3px 16px 0 -12px #b78e81; } }
+@-moz-keyframes hop {
+  20% {
+    -moz-transform: rotate(-10deg) translate(16px, -32px);
+    box-shadow: -3px 48px 0 -16px #b78e81; }
+  40% {
+    -moz-transform: rotate(10deg) translate(48px, -64px);
+    box-shadow: -3px 52px 0 -18px #b78e81; }
+  60%,75% {
+    -moz-transform: rotate(0) translate(64px, 0);
+    box-shadow: -3px 16px 0 -12px #b78e81; } }
+@keyframes hop {
+  20% {
+    -webkit-transform: rotate(-10deg) translate(16px, -32px);
+    -moz-transform: rotate(-10deg) translate(16px, -32px);
+    -ms-transform: rotate(-10deg) translate(16px, -32px);
+    -o-transform: rotate(-10deg) translate(16px, -32px);
+    transform: rotate(-10deg) translate(16px, -32px);
+    box-shadow: -3px 48px 0 -16px #b78e81; }
+  40% {
+    -webkit-transform: rotate(10deg) translate(48px, -64px);
+    -moz-transform: rotate(10deg) translate(48px, -64px);
+    -ms-transform: rotate(10deg) translate(48px, -64px);
+    -o-transform: rotate(10deg) translate(48px, -64px);
+    transform: rotate(10deg) translate(48px, -64px);
+    box-shadow: -3px 52px 0 -18px #b78e81; }
+  60%,75% {
+    -webkit-transform: rotate(0) translate(64px, 0);
+    -moz-transform: rotate(0) translate(64px, 0);
+    -ms-transform: rotate(0) translate(64px, 0);
+    -o-transform: rotate(0) translate(64px, 0);
+    transform: rotate(0) translate(64px, 0);
+    box-shadow: -3px 16px 0 -12px #b78e81; } }
+@-webkit-keyframes kick {
+  20%,50% {
+    box-shadow: 64px 6px 0 -6px #3f3334, 8px 24px 0 white, 64px 28px 0 -5px white, 64px 28px 0 -5px white, 64px 30px 0 -6px white; }
+  40% {
+    box-shadow: 64px 6px 0 -6px #3f3334, 8px 32px 0 white, 64px 28px 0 -5px white, 67px 28px 0 -3px white, 70px 30px 0 -3px white; } }
+@-moz-keyframes kick {
+  20%,50% {
+    box-shadow: 64px 6px 0 -6px #3f3334, 8px 24px 0 white, 64px 28px 0 -5px white, 64px 28px 0 -5px white, 64px 30px 0 -6px white; }
+  40% {
+    box-shadow: 64px 6px 0 -6px #3f3334, 8px 32px 0 white, 64px 28px 0 -5px white, 67px 28px 0 -3px white, 70px 30px 0 -3px white; } }
+@keyframes kick {
+  20%,50% {
+    box-shadow: 64px 6px 0 -6px #3f3334, 8px 24px 0 white, 64px 28px 0 -5px white, 64px 28px 0 -5px white, 64px 30px 0 -6px white; }
+  40% {
+    box-shadow: 64px 6px 0 -6px #3f3334, 8px 32px 0 white, 64px 28px 0 -5px white, 67px 28px 0 -3px white, 70px 30px 0 -3px white; } }
+
+/*# sourceMappingURL=app.css.map */
