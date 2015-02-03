@@ -38,7 +38,7 @@ $(function() {
 
     });
 
-    var MyPets = new PetList();
+    var myPets = new PetList();
 
     // Views
     Backbone.View.prototype.close = function () {
@@ -57,15 +57,15 @@ $(function() {
         tagName: 'ul',
 
         initialize: function() {
-            this.listenTo(MyPets, 'change', this.render);
-            MyPets.fetch();
+            this.listenTo(myPets, 'change', this.render);
+            myPets.fetch();
         },
 
         render: function() {
             console.log('PetListView render()');
 
             var self = this;
-            MyPets.each(function(pet) {
+            myPets.each(function(pet) {
                 var view = new PetListItemView({model: pet});
                 self.$el.append(view.render().el);
             });
@@ -149,18 +149,18 @@ $(function() {
         },
 
         listPet: function() {
-            this.showView('#main', new PetListView({model: MyPets}));
+            this.showView('#main', new PetListView({model: myPets}));
         },
 
         viewPet: function(id){
             console.log("View pet requested.");
-            var pet = MyPets.get(id);
+            var pet = myPets.get(id);
             this.showView('#main', new PetView({model: pet}));
         },
 
         editPet: function(id) {
             console.log("Edit pet opened.");
-            var pet = MyPets.get(id);
+            var pet = myPets.get(id);
             this.showView('#main', new PetView({model: pet}));
         },
 
