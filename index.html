@@ -11,19 +11,36 @@
     <header id="header">
         <h1>Pets</h1>
     </header>
+    <nav>
+        <a class="home" href="#">Home</a>
+        <a class="add-pet" href="#pet/add">+</a>
+    </nav>
     <section id="main">
         <div id="pet-list"></div>
-        <div class="add-pet">+</div>
     </section>
     <footer id="footer"></footer>
 </section>
 
 <script type="text/template" id="pet-template">
-    <div class="pet-name"><%= name %></div>
+    <div class="pet-name">
+        <span><%= name %></span>
+        <a class="delete">x</a>
+    </div>
     <div class="pet <%= type %> <%= state %>"></div>
-    <a class="action-feed">Feed</a>
-    <a class="action-exercise">Exercise</a>
-    <a class="action-sleep">Sleep</a>
+    <a class="action action-feed">Feed</a>
+    <a class="action action-exercise">Exercise</a>
+    <a class="action action-sleep">Sleep</a>
+</script>
+
+<script type="text/template" id="pet-view-template">
+    <div class="pet-name">
+        <span><%= name %></span>
+        <a class="delete">x</a>
+    </div>
+    <div class="pet <%= type %> <%= state %>"></div>
+    <a class="action action-feed">Feed</a>
+    <a class="action action-exercise">Exercise</a>
+    <a class="action action-sleep">Sleep</a>
 </script>
 
 <script src="js/jquery.1.9.1.min.js"></script>

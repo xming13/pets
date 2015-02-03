@@ -4,17 +4,19 @@ body {
 #main {
   text-align: center; }
 
-.add-pet {
+nav a {
   position: relative;
-  width: 300px;
-  height: 300px;
+  width: 50px;
+  height: 50px;
   background-color: #4294f0;
   color: white;
-  font: bold 120px serif;
-  line-height: 300px;
+  font: bold 16px serif;
+  line-height: 50px;
+  text-decoration: none;
+  text-align: center;
   display: inline-block;
   cursor: pointer; }
-  .add-pet:hover {
+  nav a:hover {
     background-color: #224C7B; }
 
 .pet-wrapper {
@@ -22,7 +24,19 @@ body {
   width: 300px;
   height: 300px;
   display: inline-block; }
-  .pet-wrapper a {
+  .pet-wrapper a.delete {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 52px;
+    height: 52px;
+    background: red;
+    line-height: 52px;
+    opacity: 0.5;
+    cursor: pointer; }
+    .pet-wrapper a.delete:hover {
+      opacity: 1; }
+  .pet-wrapper a.action {
     position: absolute;
     bottom: 0;
     width: -webkit-calc(100% / 3);
@@ -31,7 +45,7 @@ body {
     text-align: center;
     line-height: 40px;
     cursor: pointer; }
-    .pet-wrapper a:hover {
+    .pet-wrapper a.action:hover {
       background-color: rgba(255, 255, 255, 0); }
   .pet-wrapper .action-feed {
     background-color: rgba(255, 255, 255, 0.25);

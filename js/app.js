@@ -1,33 +1,8 @@
 $(function() {
 
-    // Router
-    var PetRouter = Backbone.Router.extend({
-        routes: {
-            'pet/:id': 'viewPet',
-            'pet/:id/edit': 'editPet',
-            'pet/add': 'addPet'
-        },
-
-        viewPet: function(id){
-            console.log("View pet requested.");
-            this.navigate("pet/" + id + '/edit'); // updates the fragment for us, but doesn't trigger the route
-        },
-
-        editPet: function(id) {
-            console.log("Edit pet opened.");
-        },
-
-        addPet: function() {
-            console.log('Adopt a new pet!');
-        }
-    });
-
-    var myPetRouter = new PetRouter();
-
-    Backbone.history.start();
-
-    // Model
+    // Models
     var Pet = Backbone.Model.extend({
+
         defaults: {
             type: 'rabbit',
             name: 'White Bunny',
@@ -52,27 +27,66 @@ $(function() {
             console.log('Zzz To rest is to prepare for a longer journey ahead!');
             this.set('state', 'sleep');
         }
+
     });
 
     var PetList = Backbone.Collection.extend({
+
         model: Pet,
+
         localStorage: new Backbone.LocalStorage("pets-backbone")
+
     });
 
     var MyPets = new PetList();
 
-    // View
-    var PetView = Backbone.View.extend({
+    // Views
+    Backbone.View.prototype.close = function () {
+        console.log('Closing view ' + this);
 
-        tagName: 'div',
+        if (this.beforeClose) {
+            this.beforeClose();
+        }
+
+        this.remove();
+        this.unbind();
+    };
+
+    var PetListView = Backbone.View.extend({
+
+        tagName: 'ul',
+
+        initialize: function() {
+            this.listenTo(MyPets, 'change', this.render);
+            MyPets.fetch();
+        },
+
+        render: function() {
+            console.log('PetListView render()');
+
+            var self = this;
+            MyPets.each(function(pet) {
+                var view = new PetListItemView({model: pet});
+                self.$el.append(view.render().el);
+            });
+
+            return this;
+        }
+
+    });
+
+    var PetListItemView = Backbone.View.extend({
+
+        tagName: 'li',
+
         className: function() {
             return this.model.get('type') + '-wrapper pet-wrapper';
         },
 
-        // Cache the template function for a single item.
         template: _.template($('#pet-template').html()),
 
         events: {
+            'click a.delete': 'delete',
             'click a.action-feed': 'feed',
             'click a.action-exercise': 'exercise',
             'click a.action-sleep': 'sleep'
@@ -88,8 +102,15 @@ $(function() {
         },
 
         render: function() {
+            console.log('PetListItemView render()');
             this.$el.html(this.template(this.model.toJSON()));
             return this;
+        },
+
+        delete: function() {
+            if (confirm('Are you sure you want to release this pet?')) {
+                this.model.destroy();
+            }
         },
 
         feed: function() {
@@ -103,45 +124,64 @@ $(function() {
         sleep: function() {
             this.model.sleep();
         }
+
     });
 
-    var AppView = Backbone.View.extend({
-        el: $('#pet-app'),
+    var PetView = Backbone.View.extend({
 
-        events: {
-            'click .add-pet': 'goToAdd'
-        },
-
-        initialize: function() {
-            this.$main = this.$('#main');
-            this.$footer = this.$('#footer');
-
-            this.listenTo(MyPets, 'add', this.addOne);
-            this.listenTo(MyPets, 'reset', this.addAll);
-
-            MyPets.fetch();
-        },
+        template: _.template($('#pet-view-template').html()),
 
         render: function() {
-
-        },
-
-        goToAdd: function() {
-            console.log('goToAdd');
-            myPetRouter.navigate('pet/add');
-        },
-
-        addOne: function(pet) {
-            var view = new PetView({model: pet});
-            this.$("#pet-list").append(view.render().el);
-        },
-
-        addAll: function() {
-            this.$('#pet-list').html('');
-            MyPets.each(this.addOne, this);
+            console.log('PetView render()');
+            return this;
         }
 
     });
 
-    var App = new AppView();
+    // Router
+    var PetRouter = Backbone.Router.extend({
+
+        routes: {
+            '': 'listPet',
+            'pet/:id': 'viewPet',
+            'pet/:id/edit': 'editPet',
+            'pet/add': 'addPet'
+        },
+
+        listPet: function() {
+            this.showView('#main', new PetListView({model: MyPets}));
+        },
+
+        viewPet: function(id){
+            console.log("View pet requested.");
+            var pet = MyPets.get(id);
+            this.showView('#main', new PetView({model: pet}));
+        },
+
+        editPet: function(id) {
+            console.log("Edit pet opened.");
+            var pet = MyPets.get(id);
+            this.showView('#main', new PetView({model: pet}));
+        },
+
+        addPet: function() {
+            console.log('Adopt a new pet!');
+            this.showView('#main', new PetView({model: new Pet()}));
+        },
+
+        showView: function(selector, view) {
+            if (this.currentView) {
+                this.currentView.close();
+            }
+            $(selector).html(view.render().el);
+            this.currentView = view;
+            return view;
+        }
+
+    });
+
+    var myPetRouter = new PetRouter();
+
+    Backbone.history.start();
+
 });

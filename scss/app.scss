@@ -8,14 +8,16 @@ body {
   text-align: center;
 }
 
-.add-pet {
+nav a  {
   position: relative;
-  width: 300px;
-  height: 300px;
+  width: 50px;
+  height: 50px;
   background-color: #4294f0;
   color: white;
-  font: bold 120px serif;
-  line-height: 300px;
+  font: bold 16px serif;
+  line-height: 50px;
+  text-decoration: none;
+  text-align: center;
   display: inline-block;
   cursor: pointer;
 
@@ -30,7 +32,22 @@ body {
   height: 300px;
   display: inline-block;
 
-  a {
+  a.delete {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 52px;
+    height: 52px;
+    background: red;
+    line-height: 52px;
+    opacity: 0.5;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+  a.action {
     position: absolute;
     bottom: 0;
     @include calc('width', '100% / 3');
