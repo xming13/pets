@@ -4,10 +4,6 @@ body {
   background-color: #BDFF98;
 }
 
-#main {
-  text-align: center;
-}
-
 nav a  {
   position: relative;
   width: 50px;
@@ -26,25 +22,36 @@ nav a  {
   }
 }
 
+#main {
+  text-align: center;
+}
+
 .pet-wrapper {
   position: relative;
   width: 300px;
   height: 300px;
   display: inline-block;
 
+  .pet-name-wrapper {
+    cursor: pointer;
+  }
+
   a.delete {
     position: absolute;
-    right: 0;
-    top: 0;
-    width: 52px;
-    height: 52px;
-    background: red;
-    line-height: 52px;
-    opacity: 0.5;
+    padding: 8px;
+    right: 10px;
+    top: 10px;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
     cursor: pointer;
+    opacity: 0.6;
+    color: red;
+    display: none;
 
     &:hover {
       opacity: 1;
+      font-weight: bold;
     }
   }
   a.action {
@@ -81,7 +88,7 @@ nav a  {
   background: #FF9E66;
 }
 
-.pet-name {
+.pet-name-wrapper {
   padding: 12px;
   text-align: center;
   font-size: 20px;

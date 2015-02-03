@@ -9,6 +9,12 @@ $(function() {
             state: 'exercise'
         },
 
+        // used for backbone form
+        schema: {
+            type: { type: 'Select', options: ['rabbit', 'piglet'] },
+            name: 'Text'
+        },
+
         initialize: function() {
             console.log('A pet has been initialized.', this);
         },
@@ -57,15 +63,14 @@ $(function() {
         tagName: 'ul',
 
         initialize: function() {
-            this.listenTo(myPets, 'change', this.render);
-            myPets.fetch();
+            this.model.fetch();
         },
 
         render: function() {
             console.log('PetListView render()');
 
             var self = this;
-            myPets.each(function(pet) {
+            this.model.each(function(pet) {
                 var view = new PetListItemView({model: pet});
                 self.$el.append(view.render().el);
             });
@@ -89,7 +94,10 @@ $(function() {
             'click a.delete': 'delete',
             'click a.action-feed': 'feed',
             'click a.action-exercise': 'exercise',
-            'click a.action-sleep': 'sleep'
+            'click a.action-sleep': 'sleep',
+            'click .pet-name': 'edit',
+            'mouseover': 'mouseover',
+            'mouseleave': 'mouseleave'
         },
 
         initialize: function(options) {
@@ -123,17 +131,76 @@ $(function() {
 
         sleep: function() {
             this.model.sleep();
+        },
+
+        edit: function() {
+            console.log('edit');
+            myPetRouter.navigate('pet/' + this.model.id + '/edit', true);
+        },
+
+        mouseover: function() {
+            this.$('a.delete').show();
+        },
+
+        mouseleave: function() {
+            this.$('a.delete').hide();
         }
 
     });
 
     var PetView = Backbone.View.extend({
 
-        template: _.template($('#pet-view-template').html()),
+        initialize: function() {
+            if (!this.model) {
+                this.model = new Pet();
+            }
+            if (!this.form) {
+                this.form = new Backbone.Form({
+                    model: this.model,
+                    submitButton: 'Add'
+                });
+            }
+
+            this.form.on('type:change', function(form, typeEditor) {
+                var petType = typeEditor.getValue();
+                var petDefaultName = '';
+
+                switch (petType) {
+                    case 'rabbit':
+                        petDefaultName = 'White bunny';
+                        break;
+                    case 'piglet':
+                        petDefaultName = 'Little piglet';
+                        break;
+                }
+                form.fields.name.editor.setValue(petDefaultName);
+            });
+
+            this.form.on('submit', function(event) {
+                event.preventDefault();
+
+                console.log('submit');
+                console.log('before commit', this.model);
+                this.commit();
+                console.log('after commit', this.model);
+
+                if (this.model.isNew()) {
+                    console.log('creating new pet');
+                    myPets.create(this.model);
+                }
+                else {
+                    console.log('editing pet');
+                    this.model.save();
+                }
+
+                myPetRouter.navigate('', true);
+            });
+        },
 
         render: function() {
             console.log('PetView render()');
-            return this;
+
+            return this.form.render();
         }
 
     });
