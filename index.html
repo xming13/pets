@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Pets</title>
+
+    <link rel="stylesheet" type="text/css" href="css/app.css" />
+    <script data-main="js/main" src="js/libs/require/require.min.js"></script>
 </head>
 <body>
-<link rel="stylesheet" type="text/css" href="css/app.css">
-
 <section id="pet-app">
     <header id="header">
         <h1>Pets</h1>
@@ -20,27 +21,5 @@
     </section>
     <footer id="footer"></footer>
 </section>
-
-<script type="text/template" id="pet-template">
-    <div class="pet-name-wrapper">
-        <span class="pet-name"><%= name %></span>
-        <a class="delete">X</a>
-    </div>
-    <div class="pet <%= type %> <%= state %>"></div>
-    <a class="action action-feed">Feed</a>
-    <a class="action action-exercise">Exercise</a>
-    <a class="action action-sleep">Sleep</a>
-</script>
-
-<script type="text/template" id="pet-view-template">
-    <%= form %>
-</script>
-
-<script src="js/jquery.1.9.1.min.js"></script>
-<script src="js/underscore-min.js"></script>
-<script src="js/backbone-min.js"></script>
-<script src="js/backbone.localstorage.js"></script>
-<script src="js/backbone-forms.min.js"></script>
-<script src="js/app.js"></script>
 </body>
 </html>
