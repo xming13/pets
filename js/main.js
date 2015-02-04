@@ -20,9 +20,8 @@ require.config({
        underscore: 'libs/underscore/underscore-min',
        backbone: 'libs/backbone/backbone',
        backboneLocalstorage: 'libs/backbone/backbone.localStorage',
-       backboneform: 'libs/backbone/backbone-forms.min'
-       //,
-       //templates: '../templates'
+       backboneform: 'libs/backbone/backbone-forms.min',
+       templates: '../templates'
    }
 });
 
